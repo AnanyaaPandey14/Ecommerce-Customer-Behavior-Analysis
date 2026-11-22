@@ -118,6 +118,18 @@ kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
 
 rfm["Cluster"] = kmeans.fit_predict(rfm_scaled)
 
+import os
+import joblib
+
+# Create models folder
+os.makedirs("models", exist_ok=True)
+
+# Save trained machine learning models
+joblib.dump(kmeans, "models/kmeans_model.pkl")
+joblib.dump(scaler, "models/scaler.pkl")
+
+print("Models saved successfully!")
+
 print("\nCustomer Segmentation Results:")
 print(rfm.head(10))
 
