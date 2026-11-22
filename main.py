@@ -1,4 +1,5 @@
 import pandas as pd
+import joblib
 
 df = pd.read_excel("online_retail_II.xlsx")
 
@@ -117,10 +118,12 @@ rfm_scaled = scaler.fit_transform(rfm_features)
 kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
 
 rfm["Cluster"] = kmeans.fit_predict(rfm_scaled)
+# Save trained models
+joblib.dump(kmeans, "models/kmeans_model.pkl")
+joblib.dump(scaler, "models/scaler.pkl")
+
 
 import os
-import joblib
-
 # Create models folder
 os.makedirs("models", exist_ok=True)
 
@@ -220,3 +223,5 @@ print("================================")
 
 print("Customer segmentation results saved.")
 print("Cluster analysis saved.")
+joblib.dump(kmeans, "models/kmeans_model.pkl")
+joblib.dump(scaler, "models/scaler.pkl")
